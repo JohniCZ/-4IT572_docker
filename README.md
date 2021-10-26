@@ -13,10 +13,10 @@
 ```javascript
 
 /* First, Install the needed packages */
-npm install
+npm run install
 
 /* Then start both Node and React */
-npm start
+npm run start
 
 /* To run the tests */
 npm run test
