@@ -3,7 +3,7 @@ name: Build and tests our Eshop
 on:
   workflow_dispatch:
 jobs:
-# Install all dependencies
+  # Install all dependencies
   Install:
     runs-on: ubuntu-latest
 
@@ -13,16 +13,16 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
 
-    - name: Setup Node
-      uses: actions/setup-node@v2.4.1
-      with:
-        node-version: 10
-    - name: Cache node modules
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: node_modules-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: node_modules-
-    - name: Install with npm
-      run: npm ci
-      
+      - name: Setup Node
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: 10
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: node_modules-
+      - name: Install with npm
+        run: npm ci
+
