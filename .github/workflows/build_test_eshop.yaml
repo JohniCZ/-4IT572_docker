@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
 jobs:
 # Install all dependencies
-Install:
-  runs-on: ubuntu-latest
+  Install:
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Git checkout
-      uses: actions/checkout@v2.4.0
-      with:
-        token: ${{ secrets.WORKFLOW_TOKEN }}
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          token: ${{ secrets.WORKFLOW_TOKEN }}
 
     - name: Setup Node
       uses: actions/setup-node@v2.4.1
@@ -25,3 +25,4 @@ Install:
         restore-keys: node_modules-
     - name: Install with npm
       run: npm ci
+      
