@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Git checkout
+      - name: Git Checkout
         uses: actions/checkout@v2.4.0
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
@@ -20,20 +20,24 @@ jobs:
         uses: actions/setup-node@v2.4.1
         with:
           node-version: 10
+
       - name: Cache node modules
         uses: actions/cache@v2
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: node_modules-
+
       - name: Install with npm
-        run: npm ci
+        run: |
+          npm ci
+
   Build:
     needs: Install
     runs-on: ubuntu-latest
 
     steps:
-      - name: Git checkout
+      - name: Git Checkout
         uses: actions/checkout@v2.4.0
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
@@ -42,13 +46,15 @@ jobs:
         uses: actions/setup-node@v2.4.1
         with:
           node-version: 10
+
       - name: Cache node modules
         uses: actions/cache@v2
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
+
       - name: build
-        run:
+        run: |
           npm rebuild node-sass --force
           npm run build -- --colors
 
@@ -57,10 +63,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~./npm
+            ~/.npm
             ./node_modules
             ./build
-          key: ${{ runner.os }}-build-${{github.run_id}}
+          key: ${{ runner.os }}-build-${{ github.run_id }}
           restore-keys: ${{ runner.os }}-build-${{ github.run_id }}
 
   Test:
@@ -68,7 +74,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Git checkout
+      - name: Git Checkout
         uses: actions/checkout@v2.4.0
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
@@ -77,31 +83,35 @@ jobs:
         uses: actions/setup-node@v2.4.1
         with:
           node-version: 10
+
       - name: Cache node modules
         uses: actions/cache@v2
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
-      - name: tests
-        run:
-          npm run test
+
+      - name: Run Unit Tests
+        run: npm run test -- --colors
+
   Deploy:
     needs: [ Build, Test ]
     runs-on: ubuntu-latest
-    if: ${{github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
 
     steps:
-      - name: Git checkout
+      - name: Git Checkout
         uses: actions/checkout@v2.4.0
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
+
       - name: Load node modules and build folder
         uses: actions/cache@v2
         with:
           path: |
-            ~./npm
+            ~/.npm
             ./node_modules
             ./build
           key: ${{ runner.os }}-build-${{ github.run_id }}
+
       - name: Deploy to firebase
         run: ./node_modules/.bin/firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
