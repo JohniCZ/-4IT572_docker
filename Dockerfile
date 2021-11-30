@@ -8,4 +8,3 @@ RUN npm run install \
 EXPOSE 3000
 
 ENTRYPOINT npm run start
-
