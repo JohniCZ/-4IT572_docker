@@ -5,6 +5,10 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - master
+      - main
 jobs:
   # Install all dependencies
   Install:
