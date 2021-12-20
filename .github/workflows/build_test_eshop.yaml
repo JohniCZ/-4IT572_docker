@@ -117,7 +117,7 @@ jobs:
         run: |
             touch ./.github/workflows/vault_pass.txt
             echo '${{ secrets.VAULT_PASS }}' >> ./.github/workflows/vault_pass.txt
-            export ANSIBLE_VAULT_PASSWORD_FILE=./.github/workflows/vault_pass.txt
+            export ANSIBLE_VAULT_PASSWORD_FILE=.github/workflows/vault_pass.txt
             ansible-vault encrypt_string --vault-password-file '${{ secrets.AWS_ACCESS_KEY }}' --name 'access_key'
             ansible-vault encrypt_string --vault-password-file '${{ secrets.AWS_SECRET }}' --name 'secret_key'
             ansible-vault encrypt_string --vault-password-file '${{ secrets.AWS_SESSION }}' --name 'session_token'
