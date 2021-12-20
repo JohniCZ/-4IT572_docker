@@ -94,7 +94,6 @@ jobs:
         run: npm run test -- --colors
 
   DeployToAws:
-    needs: [ Build, Test ]
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
 
@@ -109,3 +108,8 @@ jobs:
             python-version: '3.7'
       - name: Install boto/ansiblePlaybook
         run: pip3 install ansible==4 boto boto3
+      - name: Prepare SSHKEY
+        run: | 
+          touch ./.github/workflows/devops.pem
+          echo '${{ secrets.SSH_PRIVATE_KEY }}' >> ./.github/workflows/devops.pem
+          chmod 400 ./.github/workflows/devops.pem
