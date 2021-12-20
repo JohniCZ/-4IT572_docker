@@ -116,7 +116,7 @@ jobs:
       - name: Prepare ansible variables groups
         run: |
             printf 'aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}\n' >> ./ansible/group_vars/all/aws.yml
-            printf 'aws_secret_key: ${{ secrets.AWS_SECRET }}\n' >> ./ansible/groups/all/aws.yml
+            printf 'aws_secret_key: ${{ secrets.AWS_SECRET }}\n' >> ./ansible/group_vars/all/aws.yml
             printf 'security_token: ${{ secrets.AWS_SESSION }}\n' >> ./ansible/group_vars/all/aws.yml
       - name: Deploy to AWS
         env:
