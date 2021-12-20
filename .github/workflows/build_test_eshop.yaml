@@ -117,8 +117,8 @@ jobs:
         env:
           VAULT_PASS: ${{ secrets.VAULT_PASS }}
         run: |
-            mkdir –p ~/group_vars/all
-            touch ~/group_vars/all/aws.yml
+            mkdir –p ./group_vars/all
+            touch ./group_vars/all/aws.yml
             printf 'aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}\n' >> ~/group_vars/all/aws.yml
             printf 'aws_secret_key: ${{ secrets.AWS_SECRET }}\n' >> ~/group_vars/all/aws.yml
             printf 'security_token: ${{ secrets.AWS_SESSION }}\n' >> ~/group_vars/all/aws.yml
