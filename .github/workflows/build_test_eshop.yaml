@@ -115,14 +115,12 @@ jobs:
           chmod 400 ./.github/workflows/devops.pem
       - name: Prepare ansible-vault
         run: |
-            touch ./.github/workflows/vault_pass.txt
-            echo '${{ secrets.VAULT_PASS }}' >> ./.github/workflows/vault_pass.txt
-            export ANSIBLE_VAULT_PASSWORD_FILE=.github/workflows/vault_pass.txt
-            ansible-vault encrypt_string --vault-password-file '${{ secrets.AWS_ACCESS_KEY }}' --name 'access_key'
-            ansible-vault encrypt_string --vault-password-file '${{ secrets.AWS_SECRET }}' --name 'secret_key'
-            ansible-vault encrypt_string --vault-password-file '${{ secrets.AWS_SESSION }}' --name 'session_token'
+            touch ./vault.pass
+            ansible-vault encrypt_string --vault-password-file ./vault.pass '${{ secrets.AWS_ACCESS_KEY }}' --name 'access_key'
+            ansible-vault encrypt_string --vault-password-file ./vault.pass '${{ secrets.AWS_SECRET }}' --name 'secret_key'
+            ansible-vault encrypt_string --vault-password-file ./vault.pass '${{ secrets.AWS_SESSION }}' --name 'session_token'
       - name: Deploy to AWS
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
         run: |
-          ansible-playbook ./.github/workflows/ec2_deploy.yml --user ec2-user --key-file ./.github/workflows/devops.pem --vault-password-file
+          ansible-playbook ./.github/workflows/ec2_deploy.yml --user ec2-user --key-file ./.github/workflows/devops.pem --vault-password-file ./vault.pass
