@@ -125,4 +125,4 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
         run: |
-          ansible-playbook ./.github/workflows/ec2_deploy.yml --user ec2-user --key-file ./.github/workflows/devops.pem --vault-password-file=./vault.pass
+          ansible-playbook ./.github/workflows/ec2_deploy.yml --user ec2-user --key-file ./.github/workflows/devops.pem --vault-password-file=~/vault.pass
