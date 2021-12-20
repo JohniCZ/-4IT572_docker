@@ -117,10 +117,10 @@ jobs:
         env:
           VAULT_PASS: ${{ secrets.VAULT_PASS }}
         run: |
-            echo "$VAULT_PASS" > ./vault_pass.txt
-            ansible-vault encrypt_string --vault-password-file=./vault.pass '${{ secrets.AWS_ACCESS_KEY }}' --name 'access_key'
-            ansible-vault encrypt_string --vault-password-file=./vault.pass '${{ secrets.AWS_SECRET }}' --name 'secret_key'
-            ansible-vault encrypt_string --vault-password-file=./vault.pass '${{ secrets.AWS_SESSION }}' --name 'session_token'
+            echo "$VAULT_PASS" > ~/vault.pass
+            ansible-vault encrypt_string --vault-password-file=~/vault.pass '${{ secrets.AWS_ACCESS_KEY }}' --name 'access_key'
+            ansible-vault encrypt_string --vault-password-file=~/vault.pass '${{ secrets.AWS_SECRET }}' --name 'secret_key'
+            ansible-vault encrypt_string --vault-password-file=~/vault.pass '${{ secrets.AWS_SESSION }}' --name 'session_token'
       - name: Deploy to AWS
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
