@@ -111,5 +111,5 @@ jobs:
       - name: Prepare SSHKEY
         run: | 
           touch ./.github/workflows/devops.pem
-          echo '${{ secrets.SSH_PRIVATE_KEY }}' >> ./.github/workflows/devops.pem
+          echo '${{ secrets.AWS_SSH_KEY }}' >> ./.github/workflows/devops.pem
           chmod 400 ./.github/workflows/devops.pem
