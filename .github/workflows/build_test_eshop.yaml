@@ -114,7 +114,8 @@ jobs:
           echo '${{ secrets.AWS_SSH_KEY }}' >> ./.github/workflows/devops.pem
           chmod 400 ./.github/workflows/devops.pem
       - name: Prepare ansible-vault
-        run: |
+        run: 
+            echo '::echo::off'
             ansible-vault encrypt_string '${{ secrets.AWS_SSH_KEY }}' '${{ secrets.AWS_ACCESS_KEY }}' --name 'access_key'
             ansible-vault encrypt_string '${{ secrets.AWS_SSH_KEY }}' '${{ secrets.AWS_SECRET }}' --name 'secret_key'
             ansible-vault encrypt_string '${{ secrets.AWS_SSH_KEY }}' '${{ secrets.AWS_SESSION }}' --name 'session_token'
