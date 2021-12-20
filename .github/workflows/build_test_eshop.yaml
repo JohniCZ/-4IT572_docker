@@ -94,6 +94,7 @@ jobs:
         run: npm run test -- --colors
 
   DeployToAws:
+    needs: [ Build, Test ]
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
 
