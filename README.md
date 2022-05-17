@@ -12,7 +12,7 @@ fdsafdas
 fdsafda
 ```javascript
 
-/* First, Install the needed packages */
+/* First, Install the needed packages test*/
 npm run install
 
 /* Then start both Node and React */
